@@ -1,0 +1,24 @@
+function pia {
+        #check the web version by grepping out the number from https://www.privateinternetaccess.com/pages/client-support
+        web_version=`curl -s https://www.privateinternetaccess.com/pages/client-support/ |grep -m 1 'v\.[1-9][1-9]'| tr -d ' '`
+        echo $web_version
+
+        #check my current number from the default install directory for single users
+        my_version=`fgrep v. ~/.pia_manager/pia_tray.app/Contents/Resources/settings.html | sed -e 's/<[^>]*>//g'|tr -d ' '`
+        echo $my_version
+
+        if [ "$my_version" != "$web_version" ]; then
+                echo "Getting version $web_version"
+                # if you don't have wget installed, these should work, otherwise install wget via homebrew first
+                #open https://www.privateinternetaccess.com/installer/download_installer_osx
+                #open https://s3.amazonaws.com/privateinternetaccess/installers/latest/installer_osx.dmg
+
+                # I download it to the user's directory, do whatever you prefer
+                wget -O ~/Desktop/pia_"$web_version"_installer_osx.dmg https://s3.amazonaws.com/privateinternetaccess/installers/latest/installer_osx.dmg
+                open ~/Desktop/pia_"$web_version"_installer_osx.dmg
+
+                # need a better way to gracefully quit pia before opening the new installer
+                #osascript -e 'quit app "pia_tray"'
+                open /Volumes/Private\ Internet\ Access/Private\ Internet\ Access\ Installer.app
+        fi
+}
