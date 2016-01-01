@@ -19,6 +19,7 @@ function pia {
 
                 # need a better way to gracefully quit pia before opening the new installer
                 #osascript -e 'quit app "pia_tray"'
+                pkill pia openvpn
                 open /Volumes/Private\ Internet\ Access/Private\ Internet\ Access\ Installer.app
         fi
 }
