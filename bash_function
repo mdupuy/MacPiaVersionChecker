@@ -15,7 +15,8 @@ function pia {
 
                 # I download it to the user's directory, do whatever you prefer
                 wget -O ~/Desktop/pia_"$web_version"_installer_osx.dmg https://s3.amazonaws.com/privateinternetaccess/installers/latest/installer_osx.dmg
-                open ~/Desktop/pia_"$web_version"_installer_osx.dmg
+                #open ~/Desktop/pia_"$web_version"_installer_osx.dmg
+                hdiutil attach ~/Desktop/pia_"$web_version"_installer_osx.dmg
 
                 # need a better way to gracefully quit pia before opening the new installer
                 #osascript -e 'quit app "pia_tray"'
