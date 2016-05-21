@@ -1,6 +1,6 @@
 function pia {
         #check the web version by grepping out the number from https://www.privateinternetaccess.com/pages/client-support
-        web_version=`curl -s https://www.privateinternetaccess.com/pages/client-support/ |grep -m 1 'v\.[1-9][1-9]'| tr -d ' '`
+        web_version=`curl -s https://www.privateinternetaccess.com/pages/client-support/ |grep -m 1 'v[1-9][1-9]'| tr -d ' '|sed -e 's/<[^>]*>//g'|sed 's/v/v\./g'`
         echo $web_version
 
         #check my current number from the default install directory for single users
