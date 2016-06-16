@@ -8,6 +8,7 @@ installedPiaVersionCheckerVersion=`cat "$(which pia.command)"|grep -m 1 'v[0-9]\
 if [ "$installedPiaVersionCheckerVersion" != "$githubPiaVersionCheckerVersion" ]; then
 	echo MacPiaVersionCheckerVersion has updated itself from $installedPiaVersionCheckerVersion to $githubPiaVersionCheckerVersion. How meta...
 	curl -s https://raw.githubusercontent.com/mdupuy/MacPiaVersionChecker/master/pia.command >> /tmp/pia.command
+	chmod 755 /tmp/pia.command
 	mv /tmp/pia.command "$(which pia.command)"
 	pia.command
 	exit 0
