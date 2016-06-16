@@ -1,8 +1,13 @@
 #!/bin/bash
 
+# pia.command version checker v0.05
+
+#before seeing if pia has updated, see if this script has updated
+piaVersionChecker=`curl -s https://raw.githubusercontent.com/mdupuy/MacPiaVersionChecker/master/pia.command |grep -m 1 'v[0-9]\.[0-9][0-9]'`
+
 #check the web version by grepping out the number from https://www.privateinternetaccess.com/pages/client-support
-#web_version=`curl -s https://www.privateinternetaccess.com/pages/client-support/ |grep -m 1 'v\.[1-9][1-9]'| tr -d ' '`
-web_version=`curl -s https://www.privateinternetaccess.com/pages/client-support/ |grep -m 1 'v[1-9][1-9]'| tr -d ' '|sed -e 's/<[^>]*>//g'|sed 's/v//g'`
+#web_version=`curl -s https://www.privateinternetaccess.com/pages/client-support/ |grep -m 1 'v\.[0-9][0-9]'| tr -d ' '`
+web_version=`curl -s https://www.privateinternetaccess.com/pages/client-support/ |grep -m 1 'v[0-9][0-9]'| tr -d ' '|sed -e 's/<[^>]*>//g'|sed 's/v//g'`
 echo web version $web_version
 
 #check my current number from the default install directory for single users
