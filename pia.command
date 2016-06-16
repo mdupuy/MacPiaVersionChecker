@@ -1,9 +1,17 @@
 #!/bin/bash
 
-# pia.command version checker v0.05
+# pia.command version checker v0.06
 
 #before seeing if pia has updated, see if this script has updated
-piaVersionChecker=`curl -s https://raw.githubusercontent.com/mdupuy/MacPiaVersionChecker/master/pia.command |grep -m 1 'v[0-9]\.[0-9][0-9]'`
+githubPiaVersionCheckerVersion=`curl -s https://raw.githubusercontent.com/mdupuy/MacPiaVersionChecker/master/pia.command |grep -m 1 'v[0-9]\.[0-9][0-9]'|sed 's/.*v//'`
+installedPiaVersionCheckerVersion=`cat "$(which pia.command)"|grep -m 1 'v[0-9]\.[0-9][0-9]'|sed 's/.*v//'`
+if [ "$macPiaVersionCheckerVersion" != "$githubPiaVersionCheckerVersion" ]; then
+	echo MacPiaVersionCheckerVersion has updated itself! Downloading the new version. How meta..."
+	curl -s https://raw.githubusercontent.com/mdupuy/MacPiaVersionChecker/master/pia.command >> /tmp/pia.command
+	mv /tmp/pia.command "$(which pia.command)"
+	pia.command
+	exit 0
+fi
 
 #check the web version by grepping out the number from https://www.privateinternetaccess.com/pages/client-support
 #web_version=`curl -s https://www.privateinternetaccess.com/pages/client-support/ |grep -m 1 'v\.[0-9][0-9]'| tr -d ' '`
@@ -64,5 +72,5 @@ if [ "$my_version" != "$web_version" ]; then
 		
 		open /Volumes/Private\ Internet\ Access/Private\ Internet\ Access\ Installer.app
 		##mv ~/Desktop/pia_"$web_version"_installer_osx.dmg ~/.Trash
-		#mv ~/Desktop/pia_"$web_version"_installer_osx.dmg ~/Desktop/Desk
+		mv ~/Desktop/pia_"$web_version"_installer_osx.dmg ~/Desktop/Desk
 fi
