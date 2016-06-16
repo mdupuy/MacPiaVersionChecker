@@ -5,8 +5,8 @@
 #before seeing if pia has updated, see if this script has updated
 githubPiaVersionCheckerVersion=`curl -s https://raw.githubusercontent.com/mdupuy/MacPiaVersionChecker/master/pia.command |grep -m 1 'v[0-9]\.[0-9][0-9]'|sed 's/.*v//'`
 installedPiaVersionCheckerVersion=`cat "$(which pia.command)"|grep -m 1 'v[0-9]\.[0-9][0-9]'|sed 's/.*v//'`
-if [ "$macPiaVersionCheckerVersion" != "$githubPiaVersionCheckerVersion" ]; then
-	echo MacPiaVersionCheckerVersion has updated itself! Downloading the new version. How meta..."
+if [ "$installedPiaVersionCheckerVersion" != "$githubPiaVersionCheckerVersion" ]; then
+	echo MacPiaVersionCheckerVersion has updated itself from $installedPiaVersionCheckerVersion to $githubPiaVersionCheckerVersion. How meta...
 	curl -s https://raw.githubusercontent.com/mdupuy/MacPiaVersionChecker/master/pia.command >> /tmp/pia.command
 	mv /tmp/pia.command "$(which pia.command)"
 	pia.command
